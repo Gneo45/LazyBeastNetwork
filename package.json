@@ -6,14 +6,9 @@
     },
     "description": "",
     "main": "index.js",
-    "scripts": {
-        
-        "DevStart": "nodemon server.js",
-        "build": "cd client && npm run build",
-        "install-client": "cd client && npm install",
-        "heroku-postbuild": "npm run install-client && npm run build",
-        "start": "node server.js"
-       
+    "scripts": {        
+        "DevStart": "nodemon server.js",                 
+        "start": "node server.js"       
     },
     "keywords": [],
     "author": "",
