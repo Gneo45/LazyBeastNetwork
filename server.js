@@ -51,3 +51,14 @@ if(process.env.NODE_ENV === 'production') {
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
 })
+
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "script-src": ["'self'", "'unsafe-inline'", "example.com"],
+      },
+    },
+  })
+);
