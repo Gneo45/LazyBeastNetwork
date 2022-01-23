@@ -1,6 +1,4 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
+
 
 
 const express = require('express');
@@ -13,6 +11,7 @@ require('./config/db');
 const {checkUser, requireAuth} = require('./middleware/auth.middleware');
 const cors = require('cors');
 const path = require('path');
+const { reset } = require('nodemon');
 
 const app = express();
 
@@ -45,6 +44,15 @@ app.use('/api/post', postRoutes);
 if(process.env.NODE_ENV === 'production') {
   //set static folder
   app.use(express.static(path.join(__dirname, 'client/build'))); 
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res)=> {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  })
+  require('dotenv').config()
 }
 
 // server
