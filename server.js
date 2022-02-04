@@ -17,7 +17,7 @@ const { reset } = require('nodemon');
 const app = express();
 
 
-app.use(cors());
+app.use('*',cors());
 /* app.use((req, res, next) => {
   const allowedOrigins = ['http://127.0.0.1:8020', 'http://localhost:8020', 'http://127.0.0.1:9000', 'http://localhost:9000'];
   const origin = req.headers.origin;
