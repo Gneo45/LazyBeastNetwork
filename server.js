@@ -18,7 +18,7 @@ const app = express();
 
 
 app.use(cors());
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   const allowedOrigins = ['http://127.0.0.1:8020', 'http://localhost:8020', 'http://127.0.0.1:9000', 'http://localhost:9000'];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', true);
   res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
   return next();
-});
+}); */
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
