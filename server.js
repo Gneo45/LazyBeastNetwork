@@ -1,10 +1,11 @@
-
-
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 const express = require('express');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const userRoutes = require('./routes/user.routes');
+const bodyParser = require('body-parser');
 const postRoutes = require('./routes/post.routes');
 require('dotenv').config({path:'./config/.env'});
 require('./config/db');
@@ -52,7 +53,7 @@ app.get('/jwtid', requireAuth, (req, res) => {
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
 
-//Serve static assets if in production
+/* //Serve static assets if in production
 if(process.env.NODE_ENV === 'production') {
   //set static folder
   app.use(express.static(path.join(__dirname, 'client/build'))); 
@@ -65,7 +66,7 @@ if(process.env.NODE_ENV === 'production') {
   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   })
   require('dotenv').config()
-}
+} */
  
 // server
 app.listen( process.env.PORT || 5001, () => {
