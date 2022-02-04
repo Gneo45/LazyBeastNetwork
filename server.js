@@ -15,7 +15,7 @@ const { reset } = require('nodemon');
 
 const app = express();
 
-const corsOptions = {
+/* const corsOptions = {
   origin: process.env.CLIENT_URL,
   credentials: true,  
   'allowedHeaders': ['sessionId', 'Content-Type'],
@@ -23,8 +23,20 @@ const corsOptions = {
   'methods': ['GET','HEAD','PUT','PATCH','POST','DELETE'],
   'preflightContinue': false,
   
-}
-app.use(cors(corsOptions));
+} */
+app.use((req, res, next) => {
+  const allowedOrigins = ['http://127.0.0.1:8020', 'http://localhost:8020', 'http://127.0.0.1:9000', 'http://localhost:9000'];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+       res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  //res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8020');
+  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+  return next();
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -46,7 +58,7 @@ if(process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build'))); 
 }
 
-/* if (process.env.NODE_ENV !== 'production') {
+ if (process.env.NODE_ENV !== 'production') {
   app.use(express.static('client/build'));
 
   app.get('*', (req, res)=> {
@@ -54,7 +66,7 @@ if(process.env.NODE_ENV === 'production') {
   })
   require('dotenv').config()
 }
- */
+ 
 // server
 app.listen('5001' || process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
