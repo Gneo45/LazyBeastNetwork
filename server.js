@@ -46,7 +46,7 @@ if(process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build'))); 
 }
 
-if (process.env.NODE_ENV !== 'production') {
+/* if (process.env.NODE_ENV !== 'production') {
   app.use(express.static('client/build'));
 
   app.get('*', (req, res)=> {
@@ -54,9 +54,9 @@ if (process.env.NODE_ENV !== 'production') {
   })
   require('dotenv').config()
 }
-
+ */
 // server
-app.listen(process.env.PORT, () => {
+app.listen('5001' || process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
 })
 
