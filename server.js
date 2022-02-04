@@ -16,15 +16,8 @@ const { reset } = require('nodemon');
 
 const app = express();
 
-/* const corsOptions = {
-  origin: process.env.CLIENT_URL,
-  credentials: true,  
-  'allowedHeaders': ['sessionId', 'Content-Type'],
-  'exposedHeaders': ['sessionId'],
-  'methods': ['GET','HEAD','PUT','PATCH','POST','DELETE'],
-  'preflightContinue': false,
-  
-} */
+
+app.use(cors());
 app.use((req, res, next) => {
   const allowedOrigins = ['http://127.0.0.1:8020', 'http://localhost:8020', 'http://127.0.0.1:9000', 'http://localhost:9000'];
   const origin = req.headers.origin;
@@ -53,20 +46,6 @@ app.get('/jwtid', requireAuth, (req, res) => {
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
 
-/* //Serve static assets if in production
-if(process.env.NODE_ENV === 'production') {
-  //set static folder
-  app.use(express.static(path.join(__dirname, 'client/build'))); 
-}
-
- if (process.env.NODE_ENV !== 'production') {
-  app.use(express.static('client/build'));
-
-  app.get('*', (req, res)=> {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-  })
-  require('dotenv').config()
-} */
  
 // server
 app.listen( process.env.PORT || 5001, () => {
