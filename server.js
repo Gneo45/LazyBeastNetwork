@@ -17,7 +17,9 @@ const { reset } = require('nodemon');
 const app = express();
 
 
-app.options('*',cors());
+app.options(cors({
+  origin: 'https://elegant-leakey-c0d21a.netlify.app/'
+}));
 /* app.use((req, res, next) => {
   const allowedOrigins = ['http://127.0.0.1:8020', 'http://localhost:8020', 'http://127.0.0.1:9000', 'http://localhost:9000'];
   const origin = req.headers.origin;
